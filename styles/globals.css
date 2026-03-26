@@ -106,8 +106,8 @@ nav::after {
 }
 .hero-right::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to right, var(--ink) 0%, transparent 20%, transparent 80%, var(--ink) 100%),
-              linear-gradient(to top, var(--ink) 0%, transparent 15%);
+  background: linear-gradient(to right, var(--ink) 0%, transparent 10%, transparent 90%, var(--ink) 100%),
+              linear-gradient(to top, var(--ink) 0%, transparent 10%);
 }
 .hero-index {
   font-family: 'DM Mono', monospace;
@@ -403,7 +403,7 @@ footer {
   .hamburger { display: block; z-index: 600; position: relative; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 5rem 1.5rem 3rem; border-right: none; border-bottom: 1px solid var(--rule); }
-  .hero-right { height: 90vw; max-height: 500px; }
+  .hero-right { height: 125vw; max-height: 750px; }
   .hero-right img { object-position: center top; }
   .s-inner { padding: 5rem 1.5rem; }
   .s-header { flex-direction: column; gap: 1rem; }
