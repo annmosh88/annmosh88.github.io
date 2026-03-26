@@ -179,14 +179,14 @@ export default function Home() {
           </div>
           <div className="exp-grid">
             {[
-              { num: '01', icon: '◈', title: 'Frontend Development', desc: 'Building responsive, pixel-perfect web interfaces using modern web technologies. Every interaction is considered, every layout intentional.', tags: ['html','css','javascript','react'] },
-              { num: '02', icon: '◉', title: 'UI/UX Design', desc: 'Designing interfaces with intention. From graphic composition to interactive prototypes — I create experiences that guide and delight users.', tags: ['figma','graphic design','prototyping'] },
-              { num: '03', icon: '◎', title: 'Software Development', desc: 'Writing clean, maintainable code in Java and SQL. Problem-first thinking applied to build applications that work at scale.', tags: ['java','sql','git','laravel'] },
+              { num: '01', icon: '◈', title: 'Frontend', subtitle: 'Development', desc: 'Building responsive, pixel-perfect web interfaces using modern web technologies. Every interaction is considered, every layout intentional.', tags: ['html','css','javascript','react'] },
+              { num: '02', icon: '◉', title: 'UI/UX', subtitle: 'Design', desc: 'Designing interfaces with intention. From graphic composition to interactive prototypes — I create experiences that guide and delight users.', tags: ['figma','graphic design','prototyping'] },
+              { num: '03', icon: '◎', title: 'Software', subtitle: 'Development', desc: 'Writing clean, maintainable code in Java and SQL. Problem-first thinking applied to build applications that work at scale.', tags: ['java','sql','git','laravel'] },
             ].map((item, i) => (
               <div className="exp-item reveal" key={i} onMouseEnter={cursorGrow} onMouseLeave={cursorShrink}>
                 <span className="exp-big-num">{item.num}</span>
                 <span className="exp-icon">{item.icon}</span>
-                <h3>{item.title}</h3>
+                <h3>{item.title} <em>{item.subtitle}</em></h3>
                 <p>{item.desc}</p>
                 <div className="exp-tags">
                   {item.tags.map(t => <span className="exp-tag" key={t}>{t}</span>)}
@@ -209,16 +209,16 @@ export default function Home() {
           </div>
           <div className="work-list">
             {[
-              { num: '01', title: 'AgriConnect Hub', desc: 'A smart agricultural platform bridging the gap between Kenyan farmers and digital tools — connecting them with market insights, expert resources, and community support.', cats: ['Web Development','AgriTech'], collab: 'Team Project', link: 'https://github.com/Ayuoyi/agri-connect-hub-87' },
-              { num: '02', title: 'Asili Connect', desc: 'A cross-platform mobile application built with React Native and Expo, connecting communities and celebrating local culture through a seamless, accessible mobile experience.', cats: ['Mobile App','React Native'], collab: 'Team Project', link: 'https://github.com/Ayuoyi/Asili-Connect' },
-              { num: '03', title: 'KSUCU-MC Website', desc: 'The official full-stack web platform for Kisii University Christian Union — featuring authentication, content management, and community tools for a large student organization.', cats: ['Full Stack','Laravel'], collab: 'Live · Team Project', link: 'https://ksucu-mc.co.ke' },
+              { num: '01', title: 'AgriConnect', subtitle: 'Hub', desc: 'A smart agricultural platform bridging the gap between Kenyan farmers and digital tools — connecting them with market insights, expert resources, and community support.', cats: ['Web Development','AgriTech'], collab: 'Team Project', link: 'https://github.com/Ayuoyi/agri-connect-hub-87' },
+              { num: '02', title: 'Asili', subtitle: 'Connect', desc: 'A cross-platform mobile application built with React Native and Expo, connecting communities and celebrating local culture through a seamless, accessible mobile experience.', cats: ['Mobile App','React Native'], collab: 'Team Project', link: 'https://github.com/Ayuoyi/Asili-Connect' },
+              { num: '03', title: 'KSUCU-MC', subtitle: 'Website', desc: 'The official full-stack web platform for Kisii University Christian Union — featuring authentication, content management, and community tools for a large student organization.', cats: ['Full Stack','Laravel'], collab: 'Live · Team Project', link: 'https://ksucu-mc.co.ke' },
             ].map((p, i) => (
               <a href={p.link} target="_blank" rel="noopener noreferrer"
                 className="work-item reveal" key={i}
                 onMouseEnter={cursorGrow} onMouseLeave={cursorShrink}>
                 <div className="work-num">{p.num}</div>
                 <div className="work-body">
-                  <h3>{p.title}</h3>
+                  <h3>{p.title} <em>{p.subtitle}</em></h3>
                   <p>{p.desc}</p>
                   <div className="work-meta">
                     {p.cats.map(c => <span className="work-cat" key={c}>{c}</span>)}
@@ -313,19 +313,19 @@ export default function Home() {
               <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="f-group">
                   <label htmlFor="name">Your Name</label>
-                  <input id="name" type="text" placeholder="Jane Doe" required
+                  <input id="name" type="text" required
                     value={formData.name}
                     onChange={e => setFormData(p => ({ ...p, name: e.target.value }))} />
                 </div>
                 <div className="f-group">
                   <label htmlFor="email">Email Address</label>
-                  <input id="email" type="email" placeholder="jane@example.com" required
+                  <input id="email" type="email" required
                     value={formData.email}
                     onChange={e => setFormData(p => ({ ...p, email: e.target.value }))} />
                 </div>
                 <div className="f-group">
                   <label htmlFor="message">Message</label>
-                  <textarea id="message" placeholder="Hey Ann, I'd love to discuss..." required
+                  <textarea id="message" required
                     value={formData.message}
                     onChange={e => setFormData(p => ({ ...p, message: e.target.value }))} />
                 </div>
@@ -346,7 +346,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer>
-        <p className="footer-copy">© 2025 <span>Ann Muchiri</span> — Nairobi, Kenya 🇰🇪</p>
+        <p className="footer-copy">© 2026 <span>Ann Muchiri</span> — Nairobi, Kenya 🇰🇪</p>
         <div className="footer-socials">
           <a href="mailto:amuchiri040@gmail.com" onMouseEnter={cursorGrow} onMouseLeave={cursorShrink}>Email</a>
           <a href="https://github.com/annmosh88" target="_blank" rel="noopener noreferrer" onMouseEnter={cursorGrow} onMouseLeave={cursorShrink}>GitHub</a>
