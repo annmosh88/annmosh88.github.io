@@ -12,6 +12,8 @@ export default function Home() {
   const mx = useRef(0), my = useRef(0)
   const rx = useRef(0), ry = useRef(0)
   const rafRef = useRef(null)
+  const [dockVisible, setDockVisible] = useState(true)
+  const lastScrollY = useRef(0)
 
   // Custom cursor
   useEffect(() => {
@@ -61,11 +63,21 @@ export default function Home() {
     return () => obs.disconnect()
   }, [])
 
-  // Close nav on scroll
+  // Dock visibility on scroll
   useEffect(() => {
-    const close = () => setNavOpen(false)
-    window.addEventListener('scroll', close)
-    return () => window.removeEventListener('scroll', close)
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      if (currentScrollY < 100) {
+        setDockVisible(true)
+      } else if (currentScrollY > lastScrollY.current + 5) {
+        setDockVisible(false) // Scrolling down - hide
+      } else if (currentScrollY < lastScrollY.current - 5) {
+        setDockVisible(true) // Scrolling up - show
+      }
+      lastScrollY.current = currentScrollY
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const handleSubmit = async (e) => {
@@ -112,26 +124,37 @@ export default function Home() {
       <div className="cursor" ref={cursorRef} />
       <div className="cursor-ring" ref={ringRef} />
 
-      {/* NAV */}
-      <nav>
+      {/* NAV (Desktop) */}
+      <nav className="desktop-nav">
         <div className="logo">Ann <em>Muchiri</em></div>
-        <ul className={`nav-links${navOpen ? ' open' : ''}`}>
+        <ul className="nav-links">
           {['home','expertise','work','experience','contact'].map(s => (
             <li key={s}>
               <a href={`#${s === 'home' ? 'hero' : s}`}
-                onClick={() => setNavOpen(false)}
                 onMouseEnter={cursorGrow} onMouseLeave={cursorShrink}>
                 {s.charAt(0).toUpperCase() + s.slice(1)}
               </a>
             </li>
           ))}
         </ul>
-        <button className="hamburger" onClick={() => setNavOpen(v => !v)} aria-label="Menu">
-          <span style={{ transform: navOpen ? 'rotate(45deg) translate(4px,4px)' : '' }} />
-          <span style={{ opacity: navOpen ? 0 : 1 }} />
-          <span style={{ transform: navOpen ? 'rotate(-45deg) translate(4px,-4px)' : '' }} />
-        </button>
       </nav>
+
+      {/* MOBILE DASHBOARD DOCK */}
+      <div className={`mobile-dock ${dockVisible ? 'visible' : 'hidden'}`}>
+        <div className="dock-inner">
+          {[
+            { id: 'hero', label: 'Home', icon: '⌂' },
+            { id: 'expertise', label: 'Skills', icon: '◈' },
+            { id: 'work', label: 'Work', icon: '◉' },
+            { id: 'contact', label: 'Talk', icon: '✉' }
+          ].map(item => (
+            <a key={item.id} href={`#${item.id}`} className="dock-item">
+              <span className="dock-icon">{item.icon}</span>
+              <span className="dock-label">{item.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
 
       {/* HERO */}
       <section id="hero" className="hero">
@@ -209,9 +232,7 @@ export default function Home() {
           </div>
           <div className="work-list">
             {[
-              { num: '01', title: 'AgriConnect', subtitle: 'Hub', desc: 'A smart agricultural platform bridging the gap between Kenyan farmers and digital tools — connecting them with market insights, expert resources, and community support.', cats: ['Web Development','AgriTech'], collab: 'Team Project', link: 'https://github.com/Ayuoyi/agri-connect-hub-87' },
-              { num: '02', title: 'Asili', subtitle: 'Connect', desc: 'A cross-platform mobile application built with React Native and Expo, connecting communities and celebrating local culture through a seamless, accessible mobile experience.', cats: ['Mobile App','React Native'], collab: 'Team Project', link: 'https://github.com/Ayuoyi/Asili-Connect' },
-              { num: '03', title: 'KSUCU-MC', subtitle: 'Website', desc: 'The official full-stack web platform for Kisii University Christian Union — featuring authentication, content management, and community tools for a large student organization.', cats: ['Full Stack','Laravel'], collab: 'Live · Team Project', link: 'https://ksucu-mc.co.ke' },
+              { num: '01', title: 'KSUCU-MC', subtitle: 'Website', desc: 'The official full-stack web platform for Kisii University Christian Union — featuring authentication, content management, and community tools for a large student organization.', cats: ['Full Stack','Laravel'], collab: 'Live · Team Project', link: 'https://ksucu-mc.co.ke' },
             ].map((p, i) => (
               <a href={p.link} target="_blank" rel="noopener noreferrer"
                 className="work-item reveal" key={i}
